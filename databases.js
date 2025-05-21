@@ -1,16 +1,15 @@
 const mysql = require('mysql2/promise');
 
 const pool = mysql.createPool({
-  host: 'localhost',
-  user: 'root',
-  password: '',
-  database: 'school',
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || '',
+  database: process.env.DB_NAME || 'school',
   waitForConnections: true,
   connectionLimit: 10,
   queueLimit: 0
 });
 
-// ✅ طباعة تأكيد الاتصال (باستعمال async/await)
 (async () => {
   try {
     const connection = await pool.getConnection();
